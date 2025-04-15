@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: lib/derbyclient.jar
+Main-Class: MainFrame
+X-COMMENT: Main-Class will be added automatically by build
+
+

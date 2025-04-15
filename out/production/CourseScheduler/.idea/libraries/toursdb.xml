@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="toursdb">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/db-derby-10.17.1.0-bin/demo/databases/toursdb.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

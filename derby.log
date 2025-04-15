@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Tue Apr 15 18:12:45 EDT 2025:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.17.1.0 - (1913217): instance a816c00e-0196-3b83-0795-00000e60b930 
+on database directory C:\Users\Lilly\OneDrive\Desktop\CourseScheduler\CourseSchedulerDBWaleBogunjoko944905508 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@33909752 
+Loaded from file:/C:/Users/Lilly/OneDrive/Desktop/CourseScheduler/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=23+37-2369
+user.dir=C:\Users\Lilly\OneDrive\Desktop\CourseScheduler
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
