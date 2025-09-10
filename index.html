@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Scheduler - Java Desktop Application</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <h1 class="logo">📚 Course Scheduler</h1>
+                <ul class="nav-links">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#screenshots">Screenshots</a></li>
+                    <li><a href="#installation">Installation</a></li>
+                    <li><a href="#technology">Technology</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Course Scheduler</h1>
+                <p class="hero-subtitle">A comprehensive Java desktop application for managing courses, students, and class schedules</p>
+                <div class="hero-buttons">
+                    <a href="https://github.com/SamW7140/CourseScheduler" class="btn btn-primary" target="_blank">View on GitHub</a>
+                    <a href="#installation" class="btn btn-secondary">Get Started</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="overview" class="section">
+            <div class="container">
+                <h2>Project Overview</h2>
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <div class="card-icon">🎓</div>
+                        <h3>Academic Management</h3>
+                        <p>Complete solution for managing academic courses, student enrollments, and scheduling with intuitive GUI interface.</p>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">💾</div>
+                        <h3>Database Integration</h3>
+                        <p>Built with embedded Apache Derby database for reliable data persistence and transaction management.</p>
+                    </div>
+                    <div class="overview-card">
+                        <div class="card-icon">⚡</div>
+                        <h3>Real-time Updates</h3>
+                        <p>Live updates and synchronization across all application components with efficient background processing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="section bg-light">
+            <div class="container">
+                <h2>Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <h3>📅 Semester Management</h3>
+                        <p>Create and manage academic semesters with comprehensive tracking capabilities.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>📚 Course Administration</h3>
+                        <p>Add courses with detailed descriptions and manage course catalogs efficiently.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>🏫 Class Scheduling</h3>
+                        <p>Create class instances with seat limits and automated enrollment management.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>👨‍🎓 Student Management</h3>
+                        <p>Comprehensive student database with enrollment tracking and status management.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>📝 Enrollment System</h3>
+                        <p>Automated enrollment with waitlisting capabilities and conflict detection.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>📊 Reporting & Analytics</h3>
+                        <p>View schedules, enrollment reports, and class rosters with detailed insights.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screenshots" class="section">
+            <div class="container">
+                <h2>Application Interface</h2>
+                <div class="screenshots-grid">
+                    <div class="screenshot-item">
+                        <div class="screenshot-placeholder">
+                            <div class="screenshot-content">
+                                <div class="window-bar">
+                                    <div class="window-controls"></div>
+                                    <span>Course Scheduler - Main Interface</span>
+                                </div>
+                                <div class="screenshot-body">
+                                    <div class="form-section">
+                                        <h4>📚 Course Management</h4>
+                                        <div class="form-group">
+                                            <label>Semester:</label>
+                                            <div class="input-field">Fall 2024</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Course Code:</label>
+                                            <div class="input-field">CS101</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Description:</label>
+                                            <div class="input-field">Introduction to Computer Science</div>
+                                        </div>
+                                    </div>
+                                    <div class="table-section">
+                                        <h4>📋 Class Roster</h4>
+                                        <div class="table-mock">
+                                            <div class="table-row header">
+                                                <span>Student Name</span>
+                                                <span>Status</span>
+                                            </div>
+                                            <div class="table-row">
+                                                <span>John Smith</span>
+                                                <span>Enrolled</span>
+                                            </div>
+                                            <div class="table-row">
+                                                <span>Jane Doe</span>
+                                                <span>Enrolled</span>
+                                            </div>
+                                            <div class="table-row">
+                                                <span>Bob Johnson</span>
+                                                <span>Waitlisted</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="screenshot-caption">Main application interface showing course management and student enrollment</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="installation" class="section bg-light">
+            <div class="container">
+                <h2>Installation & Setup</h2>
+                <div class="installation-content">
+                    <div class="requirements">
+                        <h3>📋 Requirements</h3>
+                        <ul>
+                            <li>Java 8 or newer (JDK)</li>
+                            <li>Apache Derby (included in lib directory)</li>
+                            <li>Operating System: Windows, macOS, or Linux</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="quick-start">
+                        <h3>🚀 Quick Start</h3>
+                        <div class="code-block">
+                            <code>
+# Clone the repository<br>
+git clone https://github.com/SamW7140/CourseScheduler.git<br>
+cd CourseScheduler<br><br>
+
+# Run the application (Linux/macOS)<br>
+./start.sh<br><br>
+
+# Or run manually<br>
+java -cp "lib/derby.jar:." MainFrame
+                            </code>
+                        </div>
+                    </div>
+
+                    <div class="detailed-setup">
+                        <h3>🔧 Detailed Setup Instructions</h3>
+                        <div class="setup-steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Install Java</h4>
+                                    <p>Download and install Java JDK 8 or newer from <a href="https://adoptium.net/" target="_blank">Adoptium</a></p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Clone Repository</h4>
+                                    <p>Clone the project repository to your local machine using Git</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Compile & Run</h4>
+                                    <p>Use the provided start script or compile manually with the embedded Derby database</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="technology" class="section">
+            <div class="container">
+                <h2>Technology Stack</h2>
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <div class="tech-icon">☕</div>
+                        <h3>Java</h3>
+                        <p>Core application built with Java, featuring object-oriented design and robust error handling</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">🖥️</div>
+                        <h3>Swing GUI</h3>
+                        <p>Rich desktop interface using Java Swing with responsive layouts and intuitive user interactions</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">🗄️</div>
+                        <h3>Apache Derby</h3>
+                        <p>Embedded database providing ACID compliance and SQL support without external dependencies</p>
+                    </div>
+                    <div class="tech-item">
+                        <div class="tech-icon">🔄</div>
+                        <h3>SwingWorker</h3>
+                        <p>Background processing for database operations ensuring responsive UI and smooth user experience</p>
+                    </div>
+                </div>
+                
+                <div class="architecture-info">
+                    <h3>🏗️ Architecture Highlights</h3>
+                    <ul>
+                        <li><strong>MVC Pattern:</strong> Clear separation between data models, views, and business logic</li>
+                        <li><strong>Database Layer:</strong> Abstracted database operations with connection pooling</li>
+                        <li><strong>Event-Driven:</strong> Responsive UI with proper event handling and user feedback</li>
+                        <li><strong>Error Handling:</strong> Comprehensive exception handling and user-friendly error messages</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Course Scheduler</h3>
+                    <p>A professional Java desktop application demonstrating full-stack development capabilities with database integration and GUI design.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="https://github.com/SamW7140/CourseScheduler" target="_blank">GitHub Repository</a></li>
+                        <li><a href="https://github.com/SamW7140/CourseScheduler/blob/main/README.md" target="_blank">Documentation</a></li>
+                        <li><a href="https://github.com/SamW7140/CourseScheduler/releases" target="_blank">Downloads</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Developer</h3>
+                    <p>Developed by <strong>SamW7140</strong></p>
+                    <p>Java • Swing • Database Design</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Course Scheduler. Open source project available on GitHub.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

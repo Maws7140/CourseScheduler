@@ -1,6 +1,12 @@
 # Course Scheduler
 
-A simple Java desktop application for scheduling courses, managing students, and tracking class enrollments.
+A comprehensive Java desktop application for scheduling courses, managing students, and tracking class enrollments.
+
+## 🌐 Live Demo
+
+Visit the web showcase: **[https://samw7140.github.io/CourseScheduler/](https://samw7140.github.io/CourseScheduler/)**
+
+The web showcase provides a complete overview of the application's features, screenshots, and setup instructions - perfect for demonstrating capabilities to potential employers.
 
 ## Prerequisites
 
@@ -80,3 +86,15 @@ If you encounter any issues:
 1. Ensure Java 8+ is installed and in your PATH
 2. Check that Derby JAR is in the lib directory
 3. For database issues, delete the database directory and restart (this will reset all data)
+
+## Web Showcase
+
+This project includes a professional web showcase deployed on GitHub Pages at:
+**[https://samw7140.github.io/CourseScheduler/](https://samw7140.github.io/CourseScheduler/)**
+
+The showcase features:
+- Complete application overview and feature descriptions
+- Mock interface screenshots
+- Detailed installation instructions
+- Technology stack documentation
+- Professional presentation suitable for job fair demonstrations

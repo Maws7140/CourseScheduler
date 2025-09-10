@@ -1,0 +1,27 @@
+# Java class files
+*.class
+
+# Database files
+CourseSchedulerDBWaleBogunjoko*
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Build artifacts
+bin/
+dist/
+out/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+*.logZone.Identifier
+
+# Temporary files
+*.tmp
+*.temp
