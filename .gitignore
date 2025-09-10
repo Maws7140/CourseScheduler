@@ -22,6 +22,9 @@ Thumbs.db
 *.log
 *.logZone.Identifier
 
+# Zone Identifier files (Windows security feature)
+*Zone.Identifier
+
 # Temporary files
 *.tmp
 *.temp
