@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Scheduler | Retro Demo</title>
+    <title>Course Scheduler | Retro Terminal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
@@ -14,63 +14,33 @@
             --maws-dark-purple: #2d1b4e;
             --maws-gold: #ffd700;
             
-            /* Retro Tech Colors */
-            --tv-casing: #222024;
-            --screen-black: #0f0f0f;
+            /* Terminal Colors */
             --phosphor-green: #33ff00;
-            
-            /* Guide Colors */
-            --guide-blue: #0000aa;
-            
-            /* Backgrounds */
-            --hero-bg: #151515;
+            --terminal-bg: #0c0c0c;
+            --terminal-border: #6b5b95;
+            --dim-text: #a0a0a0;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; }
 
         body {
-            background-color: #101010;
-            color: white;
+            background-color: #050505;
+            color: var(--phosphor-green);
             font-family: 'VT323', monospace;
-            overflow-x: hidden;
-            padding-bottom: 40px;
+            margin: 0;
+            padding: 20px;
+            font-size: 1.3rem;
+            line-height: 1.4;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        /* =========================================
-           CUSTOM SCROLLBAR
-           ========================================= */
-        ::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #050505; 
-            border-left: 1px solid #222;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--maws-purple);
-            border: 3px solid #050505;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--maws-gold);
-        }
-
-        /* =========================================
-           GLOBAL CRT EFFECT OVERLAY
-           ========================================= */
+        /* CRT Scanline Effect */
         .scanlines {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0; width: 100vw; height: 100vh;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
                         linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             background-size: 100% 2px, 3px 100%;
@@ -78,803 +48,312 @@
             z-index: 999;
         }
 
-        /* =========================================
-           SECTION 1: HERO (TV & REMOTE)
-           ========================================= */
-        #hero {
-            min-height: 100vh;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center; 
-            gap: 60px; /* Reduced gap slightly to fit the wider TV */
-            padding: 40px 20px;
-            background: var(--hero-bg);
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(to bottom, #101010 80%, #151515 100%);
-        }
-
-        .tv-set {
-            /* EVEN WIDER TV */
+        .container {
             width: 100%;
-            max-width: 1100px; 
-            aspect-ratio: 11/8;
-            height: auto;
-            background: var(--tv-casing);
-            border-radius: 40px;
-            padding: 35px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.9), 
-                        0 0 100px rgba(0,0,0,0.8);
+            max-width: 1000px;
+            border: 2px solid var(--maws-purple);
+            padding: 4px; /* Double border effect outer */
+            box-shadow: 0 0 25px rgba(107, 91, 149, 0.2);
+            background: var(--terminal-bg);
             position: relative;
-            border: 15px solid #1a1a1a;
-            z-index: 5;
+            z-index: 1;
         }
 
-        .tv-brand-label {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--maws-gold);
-            font-family: 'Press Start 2P', cursive; 
-            font-size: 1rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-            opacity: 0.8;
-        }
-
-        .tv-screen-container {
-            width: 100%;
-            height: 93%; 
-            background: var(--screen-black);
-            border-radius: 100px / 70px; /* Flatter curve for wider screen */
-            position: relative;
-            overflow: hidden;
-            border: 4px solid #333;
-            box-shadow: inset 0 0 80px rgba(0,0,0,1);
-        }
-
-        .tv-screen {
-            width: 100%;
-            height: 100%;
-            padding: 50px;
-            color: var(--phosphor-green);
-            text-shadow: 0 0 5px var(--phosphor-green);
+        .inner-border {
+            border: 2px solid var(--maws-purple);
+            padding: 30px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            font-size: clamp(1rem, 2.5vw, 2.2rem);
-            opacity: 0;
-            transition: opacity 0.2s; /* Faster fade */
-            position: relative;
-            z-index: 2;
-        }
-
-        .tv-screen.on { opacity: 1; }
-
-        .tv-screen h2 {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.8rem;
-            line-height: 1.5;
-            margin-bottom: 25px;
-            color: #fff;
-            text-shadow: 3px 3px var(--maws-purple);
-        }
-
-        /* LINKS ON TV SCREEN */
-        .screen-link {
-            color: #fff;
-            text-decoration: none;
-            border-bottom: 4px dashed var(--maws-gold);
-            transition: all 0.2s;
-            cursor: pointer;
-            position: relative;
-            z-index: 100; 
-        }
-
-        .screen-link:hover {
-            color: var(--maws-gold);
-            border-bottom: 4px solid var(--maws-gold);
-            text-shadow: 0 0 20px var(--maws-gold);
-        }
-        
-        .screen-link::after {
-            content: ' 🔗';
-            font-size: 0.6em;
-            opacity: 0.7;
-        }
-
-        .tv-logo-img {
-            max-width: 45%;
-            height: auto;
-            margin-bottom: 25px;
-            filter: contrast(1.2) sepia(0.5) hue-rotate(50deg) saturate(3); 
-        }
-
-        .tech-stack {
-            font-size: 1.4rem;
-            color: var(--maws-gold);
-            margin-top: 20px;
-            text-shadow: 2px 2px 0 #000;
-        }
-
-        .channel-indicator {
-            position: absolute;
-            top: 40px;
-            right: 50px;
-            font-family: 'VT323', monospace;
-            color: var(--maws-gold);
-            font-size: 4rem;
-            display: none;
-            text-shadow: 0 0 10px var(--maws-gold);
-            z-index: 10;
-        }
-
-        .static-noise {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABADeOQ8CXl/xfgAAAABJRU5ErkJggg==');
-            opacity: 0;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        @keyframes noise-anim {
-            0% { transform: translate(0,0); }
-            10% { transform: translate(-5%,-5%); }
-            100% { transform: translate(5%,0); }
-        }
-
-        .tv-screen.fuzz .static-noise {
-            opacity: 0.4;
-            animation: noise-anim 0.2s infinite;
-        }
-
-        /* Scaled Up Remote */
-        .remote {
-            width: 220px;
-            height: 520px;
-            background: #2a2a2a;
-            border-radius: 15px;
-            border-bottom: 12px solid #111;
-            border-right: 6px solid #111;
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            box-shadow: 20px 20px 40px rgba(0,0,0,0.6);
-            transform: rotate(-5deg);
-            z-index: 20;
-        }
-
-        .brand { 
-            text-align: center; 
-            color: var(--maws-gold); 
-            font-weight: 900; 
-            letter-spacing: 2px; 
-            margin-bottom: 15px; 
-            font-family: sans-serif;
-            text-transform: uppercase; 
-            border: 1px solid #444;
-            padding: 4px;
-            background: #222;
-            font-size: 1.2rem;
-        }
-
-        .power-btn {
-            width: 50px;
-            height: 50px;
-            min-width: 50px;
-            min-height: 50px;
-            background: #cc0000;
-            border-radius: 50%;
-            border: 3px solid #500;
-            align-self: center;
-            flex-shrink: 0;
-            cursor: pointer;
-            box-shadow: inset 3px 3px 8px rgba(255,255,255,0.2);
-        }
-
-        .power-btn:active { transform: scale(0.95); }
-
-        .remote-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-
-        .btn {
-            height: 45px;
-            background: #111;
-            border: 2px solid #444;
-            border-radius: 6px;
-            color: #888;
-            font-family: monospace;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-        .btn:active { background: var(--maws-purple); color: white; }
-        .btn-center { grid-column: 2; }
-        .centered-row {
-            grid-column: 1 / -1;
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-        }
-        .centered-row .btn {
-            width: calc((100% - 24px) / 3);
-        }
-        .ch-btn { grid-column: span 3; background: #333; margin-top: 10px; color: white; height: 50px; font-size: 1.2rem; }
-
-        /* =========================================
-           SECTION 2: EXPERIENCE (MAWS GUIDE)
-           ========================================= */
-        #experience {
-            background: linear-gradient(to bottom, 
-                #151515 0%, 
-                #000033 20%, 
-                var(--guide-blue) 50%, 
-                var(--guide-blue) 100%
+            gap: 40px;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
             );
-            padding: 50px 20px;
-            margin-top: -2px; 
         }
 
-        .guide-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: var(--guide-blue);
-            border: 4px solid white;
-            box-shadow: 0px 20px 50px rgba(0,0,0,0.5);
-            margin-top: 50px;
-            overflow-x: auto;
-        }
-
-        .guide-header {
-            background: black;
-            color: white;
-            padding: 15px;
+        /* Header */
+        header {
+            border-bottom: 2px dashed var(--maws-purple);
+            padding-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 2px solid white;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .guide-logo { 
-            font-weight: bold; 
-            font-style: italic; 
-            font-size: 2rem; 
-            letter-spacing: -1px;
-            color: white;
-            text-shadow: 2px 2px var(--maws-purple);
-        }
-
-        #current-time {
-            font-size: 1.5rem;
+        h1 {
+            font-family: 'Press Start 2P', cursive;
             color: var(--maws-gold);
+            font-size: 1.4rem;
+            margin: 0;
+            text-shadow: 3px 3px var(--maws-dark-purple);
+            letter-spacing: 2px;
         }
 
-        .time-grid {
-            display: grid;
-            grid-template-columns: 80px 140px 1fr;
-            border-bottom: 2px solid white;
-            min-width: 800px;
+        .status-bar {
+            font-size: 1rem;
+            color: var(--maws-purple);
+            background: #000;
+            padding: 5px 10px;
+            border: 1px solid #333;
         }
 
-        .grid-cell {
-            padding: 15px;
-            border-right: 2px solid white;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            font-size: 1.1rem;
-            line-height: 1.4;
+        /* Nav */
+        nav {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
-        .grid-header {
+        nav a {
+            color: var(--dim-text);
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+        nav a:hover {
             background: var(--maws-purple);
             color: var(--maws-gold);
+            border: 1px solid var(--maws-gold);
+            box-shadow: 0 0 10px var(--maws-purple);
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .ascii-art {
+            font-size: 0.7rem; /* Smaller font for ASCII to fit mobile */
+            white-space: pre;
+            color: var(--maws-purple);
+            margin-bottom: 30px;
+            line-height: 1;
+            overflow-x: hidden;
             font-weight: bold;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: 1px 1px 0 #000;
+            text-shadow: 0 0 5px var(--maws-dark-purple);
         }
 
-        .channel-col {
-            background: black;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            text-align: center;
-        }
-
-        .program-cell { cursor: pointer; transition: background 0.2s; }
-        .program-cell:hover { background: #0000dd; }
-
-        .program-title { 
-            font-weight: bold; 
-            font-size: 1.2rem; 
-            margin-bottom: 5px; 
-            color: var(--maws-gold); 
-            text-transform: uppercase;
-        }
-        .program-desc { font-size: 1rem; opacity: 0.9; margin-bottom: 5px; }
-        .program-tech { font-size: 0.85rem; color: #00ff00; font-family: monospace; }
-
-        /* =========================================
-           SECTION 3: CONTACT (DVD MENU)
-           ========================================= */
-        #contact {
-            min-height: 100vh;
-            background: radial-gradient(circle at center, var(--maws-dark-purple) 0%, #000 90%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            border-top: 4px solid #000; 
-        }
-
-        .dvd-title {
-            font-family: 'Impact', sans-serif;
-            font-size: clamp(3rem, 10vw, 5rem);
-            color: var(--maws-gold);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 40px;
-            text-shadow: 4px 4px 0 #000, -1px -1px 0 #fff;
-            animation: float 6s ease-in-out infinite;
-            text-align: center;
-            z-index: 2;
-        }
-
-        .menu-options { list-style: none; text-align: center; z-index: 2;}
-
-        .menu-item {
-            font-family: 'Verdana', sans-serif;
-            font-size: 1.5rem;
-            color: #aaa;
-            margin: 15px 0;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            position: relative;
+        .typewriter {
             display: inline-block;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .menu-item:hover {
-            color: var(--maws-gold);
-            transform: scale(1.1);
-            text-shadow: 0 0 10px var(--maws-gold);
-        }
-
-        .menu-item:hover::before { content: '▶'; position: absolute; left: -30px; color: var(--maws-gold); animation: blink 1s infinite; }
-        .menu-item:hover::after { content: '◀'; position: absolute; right: -30px; color: var(--maws-gold); animation: blink 1s infinite; }
-
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        .bouncing-logo {
-            position: absolute;
-            width: 250px;
-            opacity: 0.3;
-            z-index: 0;
-            user-select: none;
-            top: 20%;
-            left: 20%;
-        }
-
-        /* =========================================
-           SCROLLING SKILL BAR (FIXED BOTTOM)
-           ========================================= */
-        #skill-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 40px;
-            background: #000;
-            border-top: 2px solid var(--phosphor-green);
-            display: flex;
-            align-items: center;
             overflow: hidden;
-            z-index: 1000;
-            font-family: 'VT323', monospace;
-            font-size: 1.4rem;
-            color: var(--phosphor-green);
+            border-right: .6em solid var(--phosphor-green);
             white-space: nowrap;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.8);
+            margin: 0 auto;
+            animation: blink-caret .75s step-end infinite;
+            color: var(--maws-gold);
+            font-size: 1.5rem;
         }
 
-        #skill-track {
-            display: flex;
-            will-change: transform;
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--phosphor-green); } }
+
+        .hero-desc {
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+            color: #ccc;
         }
 
-        .skill-item {
-            display: flex;
-            align-items: center;
-            margin-right: 40px; 
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            border: 1px solid var(--maws-purple);
+            padding: 20px;
+            background: rgba(45, 27, 78, 0.15);
+            position: relative;
+            transition: transform 0.2s;
         }
         
-        .skill-icon {
-            color: var(--phosphor-green);
-            margin-right: 10px;
+        .card:hover {
+            background: rgba(45, 27, 78, 0.3);
+            border-color: var(--maws-gold);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 2px; left: 2px; right: 2px; height: 2px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .card h3 {
+            color: var(--maws-gold);
+            margin-top: 0;
+            border-bottom: 1px solid var(--maws-purple);
+            padding-bottom: 10px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            background: var(--maws-dark-purple);
+            color: var(--maws-gold);
+            padding: 4px 8px;
+            font-size: 0.9rem;
+            margin-right: 5px;
+            margin-top: 5px;
+            border: 1px solid var(--maws-purple);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: var(--maws-purple);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            border: 4px solid var(--maws-dark-purple);
+            box-shadow: 6px 6px 0px black;
+            transition: all 0.1s;
+            text-transform: uppercase;
+        }
+
+        .btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: 2px 2px 0px black;
+        }
+
+        .btn:hover {
+            background: var(--maws-gold);
+            color: black;
+            cursor: pointer;
+        }
+
+        /* Terminal Box */
+        .terminal-box {
+            background: #000;
+            padding: 20px;
+            border: 1px solid #333;
+            font-family: monospace;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        .prompt { color: var(--maws-purple); margin-right: 10px; }
+        .cmd { color: var(--maws-gold); }
+        .output { color: #ccc; margin-left: 20px; display: block; margin-bottom: 5px; }
+
+        /* Footer */
+        footer {
+            border-top: 2px dashed var(--maws-purple);
+            padding-top: 20px;
+            text-align: center;
             font-size: 1rem;
+            color: #666;
         }
-        /* =========================================
-           RESPONSIVE ADJUSTMENTS
-           ========================================= */
-        @media (max-width: 1200px) {
-            .tv-set {
-                width: 90vw;
-                height: auto;
-                aspect-ratio: 11/8;
-            }
-            
-            .tv-screen {
-                padding: 30px;
-            }
-            
-            .tv-screen h2 {
-                font-size: 1.4rem;
-            }
-        }
+
+        .blink { animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         @media (max-width: 768px) {
-            #hero {
-                flex-direction: column;
-                padding-top: 20px;
-                gap: 30px;
-            }
-
-            .tv-set {
-                width: 95vw;
-                padding: 15px;
-                border-width: 8px;
-                border-radius: 20px;
-            }
-
-            .tv-screen-container {
-                border-width: 2px;
-                border-radius: 20px;
-            }
-
-            .tv-screen {
-                padding: 15px;
-            }
-
-            .tv-brand-label {
-                font-size: 0.6rem;
-                bottom: 5px;
-            }
-
-            .remote {
-                transform: rotate(0deg);
-                width: 180px;
-                height: auto;
-                padding: 15px;
-            }
-            
-            .btn {
-                height: 35px;
-                font-size: 1rem;
-            }
-            
-            .power-btn {
-                width: 40px;
-                height: 40px;
-            }
-
-            .guide-container {
-                width: 95vw;
-            }
-            
-            .bouncing-logo {
-                width: 150px;
-            }
-
-            .channel-indicator {
-                font-size: 2rem;
-                top: 15px;
-                right: 20px;
-            }
+            .ascii-art { font-size: 0.4rem; }
+            h1 { font-size: 1rem; }
+            .typewriter { font-size: 1rem; white-space: normal; border: none; }
+            .container { border: none; padding: 0; }
+            .inner-border { border: none; padding: 15px; }
         }
     </style>
 </head>
 <body>
-
     <div class="scanlines"></div>
-
-    <!-- HERO SECTION -->
-    <section id="hero">
-        <div class="tv-set">
-            <div class="tv-brand-label">PROJECTS</div>
-            <div class="tv-screen-container">
-                <div class="static-noise"></div>
-                <div class="channel-indicator" id="channel-display">CH 1</div>
-                <div class="tv-screen" id="main-screen">
-                    <div style="opacity: 0.3;">[POWER OFF]</div>
+    <div class="container">
+        <div class="inner-border">
+            <header>
+                <div>
+                    <h1>COURSE SCHEDULER</h1>
+                    <div class="status-bar" style="margin-top: 10px;">SYSTEM: ONLINE | MEM: 640K OK</div>
                 </div>
-            </div>
+                <nav>
+                    <a href="https://maws.is-a.dev/">[ < BACK TO PORTFOLIO ]</a>
+                    <a href="https://github.com/Maws7140/CourseScheduler">[ GITHUB REPO ]</a>
+                </nav>
+            </header>
+
+            <section class="hero">
+                <div class="ascii-art">
+   _____      _              _       _           
+  / ____|    | |            | |     | |          
+ | (___   ___| |__   ___  __| |_   _| | ___ _ __ 
+  \___ \ / __| '_ \ / _ \/ _` | | | | |/ _ \ '__|
+  ____) | (__| | | |  __/ (_| | |_| | |  __/ |   
+ |_____/ \___|_| |_|\___|\__,_|\__,_|_|\___|_|   
+                </div>
+                <p>> <span class="typewriter">Initializing Academic Management Protocol...</span></p>
+                <br>
+                <p class="hero-desc">A robust Java Swing application for managing university courses, students, and schedules. Built with pure Java and Apache Derby.</p>
+                <a href="https://github.com/Maws7140/CourseScheduler" class="btn">DOWNLOAD SOURCE</a>
+            </section>
+
+            <section>
+                <h2 style="color: var(--maws-gold); border-bottom: 1px solid var(--phosphor-green); display: inline-block; margin-bottom: 20px;">>> SYSTEM MODULES</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>[01] SEMESTER_MGR</h3>
+                        <p>Core module for academic term configuration. Supports add/edit/delete operations with data persistence.</p>
+                        <span class="tech-tag">JAVA</span>
+                        <span class="tech-tag">SQL</span>
+                    </div>
+                    <div class="card">
+                        <h3>[02] COURSE_DB</h3>
+                        <p>Centralized course catalog management. Handles descriptions, codes, and prerequisites.</p>
+                        <span class="tech-tag">JDBC</span>
+                        <span class="tech-tag">DERBY</span>
+                    </div>
+                    <div class="card">
+                        <h3>[03] SCHEDULER_ENG</h3>
+                        <p>Logic engine for class instantiation. Manages seat limits and room assignments.</p>
+                        <span class="tech-tag">ALGORITHM</span>
+                    </div>
+                    <div class="card">
+                        <h3>[04] STUDENT_REG</h3>
+                        <p>Student enrollment interface. Features automated waitlisting and conflict detection.</p>
+                        <span class="tech-tag">SWING</span>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 style="color: var(--maws-gold); border-bottom: 1px solid var(--phosphor-green); display: inline-block; margin-bottom: 20px;">>> TECH STACK DUMP</h2>
+                <div class="terminal-box">
+                    <p><span class="prompt">root@maws-sys:~$</span> <span class="cmd">cat stack_info.txt</span></p>
+                    <p class="output">----------------------------------------</p>
+                    <p class="output">LANGUAGE:   Java (JDK 8+)</p>
+                    <p class="output">GUI:        Swing / AWT</p>
+                    <p class="output">DATABASE:   Apache Derby (Embedded)</p>
+                    <p class="output">CONN:       JDBC (Java Database Connectivity)</p>
+                    <p class="output">ARCH:       MVC (Model-View-Controller)</p>
+                    <p class="output">THREADING:  SwingWorker (Async Ops)</p>
+                    <p class="output">----------------------------------------</p>
+                    <p><span class="prompt">root@maws-sys:~$</span> <span class="blink">_</span></p>
+                </div>
+            </section>
+
+            <footer>
+                <p>COPYRIGHT (C) 2024 MAWS SYSTEMS. ALL RIGHTS RESERVED.</p>
+                <p>PRESS ANY KEY TO CONTINUE...</p>
+            </footer>
         </div>
-
-        <div class="remote">
-            <div class="brand">MAWS</div>
-            <button class="power-btn" onclick="togglePower()" title="Power"></button>
-            <div style="text-align:center; margin-top: 10px; font-size: 0.8rem; color:#666;">PROJECT INPUT</div>
-            <div class="remote-grid">
-                <button class="btn" onclick="changeChannel(0)">1</button>
-                <button class="btn" onclick="changeChannel(1)">2</button>
-                <button class="btn" onclick="changeChannel(2)">3</button>
-                <button class="btn" onclick="changeChannel(3)">4</button>
-                <button class="btn" onclick="changeChannel(4)">5</button>
-                <button class="btn" onclick="changeChannel(5)">6</button>
-                <button class="btn" onclick="changeChannel(6)">7</button>
-                <button class="btn" onclick="changeChannel(7)">8</button>
-                <button class="btn" onclick="changeChannel(8)">9</button>
-            </div>
-            <button class="btn ch-btn" onclick="nextChannel()">CH +</button>
-            <button class="btn ch-btn" onclick="prevChannel()">CH -</button>
-        </div>
-    </section>
-
-    <!-- FEATURES SECTION -->
-    <section id="experience">
-        <div class="guide-container">
-            <div class="guide-header">
-                <span class="guide-logo">FEATURES GUIDE</span>
-                <span id="current-time">11:00 AM</span>
-            </div>
-            <div class="time-grid">
-                <div class="grid-cell grid-header">TYPE</div>
-                <div class="grid-cell grid-header">FEATURE</div>
-                <div class="grid-cell grid-header">DESCRIPTION</div>
-                <div class="grid-cell channel-col"><span style="color: magenta;">SMT</span></div>
-                <div class="grid-cell">Semesters</div>
-                <div class="grid-cell program-cell">
-                    <div class="program-title">Semester Management</div>
-                    <div class="program-desc">Create and manage academic semesters with comprehensive tracking.</div>
-                    <div class="program-tech">CRUD • Data Persistence • Validation</div>
-                </div>
-                <div class="grid-cell channel-col"><span style="color: cyan;">CRS</span></div>
-                <div class="grid-cell">Courses</div>
-                <div class="grid-cell program-cell">
-                    <div class="program-title">Course Administration</div>
-                    <div class="program-desc">Add courses with descriptions and manage course catalogs efficiently.</div>
-                    <div class="program-tech">SQL Queries • Relationships • Indexing</div>
-                </div>
-                <div class="grid-cell channel-col"><span style="color: orange;">CLS</span></div>
-                <div class="grid-cell">Classes</div>
-                <div class="grid-cell program-cell">
-                    <div class="program-title">Class Scheduling</div>
-                    <div class="program-desc">Create class instances with seat limits and automated management.</div>
-                    <div class="program-tech">Scheduling • Constraints • Transactions</div>
-                </div>
-                <div class="grid-cell channel-col"><span style="color: lime;">STU</span></div>
-                <div class="grid-cell">Students</div>
-                <div class="grid-cell program-cell">
-                    <div class="program-title">Student Management</div>
-                    <div class="program-desc">Comprehensive student database with enrollment tracking and status.</div>
-                    <div class="program-tech">Data Models • OOP • JDBC</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PROJECT INFO SECTION -->
-    <section id="contact">
-        <img src="maws_logo.png" alt="Logo" class="bouncing-logo" id="dvdLogo">
-        <h1 class="dvd-title">PROJECT</h1>
-        <ul class="menu-options">
-            <li><a href="https://github.com/Maws7140/CourseScheduler" target="_blank" class="menu-item">Repository</a></li>
-            <li><a href="https://github.com/Maws7140/CourseScheduler#readme" target="_blank" class="menu-item">Documentation</a></li>
-            <li><a href="https://maws.is-a.dev/" target="_blank" class="menu-item">Back to Portfolio</a></li>
-        </ul>
-    </section>
-
-    <div id="skill-bar">
-        <div id="skill-track"></div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            const skills = [
-                "JAVA", "SWING", "JDBC", "SQL", "APACHE DERBY", "OOP", 
-                "MVC PATTERN", "GUI DESIGN", "DATABASE DESIGN", "SWINGWORKER",
-                "EVENT-DRIVEN", "TRANSACTIONS", "ERROR HANDLING", "GIT", "GITHUB"
-            ];
-            
-            const skillTrack = document.getElementById('skill-track');
-            if(skillTrack) {
-                const singleBlock = skills.map(s => `<span class="skill-item"><span class="skill-icon">◆</span> ${s}</span>`).join("");
-                let fullString = "";
-                for(let i=0; i<50; i++) {
-                    fullString += singleBlock;
-                }
-                skillTrack.innerHTML = fullString;
-
-                window.addEventListener('scroll', () => {
-                    const maxScroll = document.body.scrollHeight - window.innerHeight;
-                    const scrollPct = window.scrollY / maxScroll;
-                    const startPos = -5000; 
-                    const travelDistance = 2000; 
-                    const currentPos = startPos + (scrollPct * travelDistance);
-                    skillTrack.style.transform = `translateX(${currentPos}px)`;
-                });
-            }
-
-            const tvScreen = document.getElementById('main-screen');
-            const channelDisplay = document.getElementById('channel-display');
-            let isPowerOn = false;
-            let currentChannel = 0;
-
-            const channels = [
-                {
-                    title: "", 
-                    link: "",
-                    content: "<p style='font-size:1.5rem; margin-bottom: 15px;'>📚 COURSE</p><p>SCHEDULER</p><p style='font-size:1rem; margin-top: 15px;'>Academic Management System</p>"
-                },
-                {
-                    title: "SEMESTER MANAGEMENT",
-                    link: "https://github.com/Maws7140/CourseScheduler",
-                    content: "<p>Create & manage academic semesters</p><p>Comprehensive tracking capabilities</p><div class='tech-stack'>Data Persistence • Validation</div>"
-                },
-                {
-                    title: "COURSE ADMIN",
-                    link: "https://github.com/Maws7140/CourseScheduler",
-                    content: "<p>Add courses with descriptions</p><p>Manage course catalogs efficiently</p><div class='tech-stack'>Database Queries • SQL</div>"
-                },
-                {
-                    title: "CLASS SCHEDULING",
-                    link: "https://github.com/Maws7140/CourseScheduler",
-                    content: "<p>Create class instances with seat limits</p><p>Automated enrollment management</p><div class='tech-stack'>Scheduling Logic • Constraints</div>"
-                },
-                {
-                    title: "STUDENT MGMT",
-                    link: "https://github.com/Maws7140/CourseScheduler",
-                    content: "<p>Comprehensive student database</p><p>Enrollment tracking & status</p><div class='tech-stack'>Data Models • Relations</div>"
-                },
-                {
-                    title: "ENROLLMENT SYSTEM",
-                    link: "https://github.com/Maws7140/CourseScheduler",
-                    content: "<p>Automated enrollment processing</p><p>Waitlisting & conflict detection</p><div class='tech-stack'>Business Logic • Transactions</div>"
-                },
-                {
-                    title: "REPORTING",
-                    link: "https://github.com/Maws7140/CourseScheduler",
-                    content: "<p>View schedules & enrollment reports</p><p>Class rosters with detailed insights</p><div class='tech-stack'>Queries • Reporting</div>"
-                },
-                {
-                    title: "TECHNOLOGY STACK",
-                    link: "https://github.com/Maws7140/CourseScheduler",
-                    content: "<p>Java • Swing GUI • JDBC</p><p>Apache Derby • Event-Driven</p><div class='tech-stack'>MVC Pattern • SwingWorker</div>"
-                },
-                {
-                    title: "GET STARTED",
-                    link: "https://github.com/Maws7140/CourseScheduler",
-                    content: "<p>Open source on GitHub</p><p>Full documentation included</p><div class='tech-stack'>Clone • Compile • Run</div>"
-                }
-            ];
-
-            window.togglePower = function() {
-                isPowerOn = !isPowerOn;
-                if (isPowerOn) {
-                    tvScreen.classList.add('on');
-                    tvScreen.innerHTML = ""; 
-                    tvScreen.classList.add('fuzz');
-                    // REDUCED DELAY to 400ms
-                    setTimeout(() => {
-                        tvScreen.classList.remove('fuzz');
-                        loadChannel(currentChannel);
-                        channelDisplay.style.display = 'block';
-                    }, 400);
-                } else {
-                    tvScreen.classList.remove('on');
-                    channelDisplay.style.display = 'none';
-                    setTimeout(() => {
-                        tvScreen.innerHTML = "<div style='opacity: 0.3;'>[POWER OFF]</div>";
-                    }, 300);
-                }
-            };
-
-            window.changeChannel = function(index) {
-                if (!isPowerOn) return;
-                if (index < 0) index = channels.length - 1;
-                if (index >= channels.length) index = 0;
-                currentChannel = index;
-                tvScreen.classList.add('fuzz');
-                channelDisplay.innerText = `CH ${index + 1}`;
-                tvScreen.innerHTML = "";
-                // REDUCED DELAY to 200ms
-                setTimeout(() => {
-                    tvScreen.classList.remove('fuzz');
-                    loadChannel(currentChannel);
-                }, 200);
-            };
-
-            window.nextChannel = function() { changeChannel(currentChannel + 1); };
-            window.prevChannel = function() { changeChannel(currentChannel - 1); };
-
-            function loadChannel(index) {
-                const ch = channels[index];
-                let titleHTML = "";
-                
-                if (ch.title) {
-                    if (ch.link) {
-                        titleHTML = `<h2><a href="${ch.link}" target="_blank" class="screen-link">${ch.title}</a></h2>`;
-                    } else {
-                        titleHTML = `<h2>${ch.title}</h2>`;
-                    }
-                }
-                
-                tvScreen.innerHTML = `
-                    ${titleHTML}
-                    ${ch.content}
-                `;
-            }
-
-            function updateTime() {
-                const now = new Date();
-                let hours = now.getHours();
-                const minutes = now.getMinutes().toString().padStart(2, '0');
-                const ampm = hours >= 12 ? 'PM' : 'AM';
-                hours = hours % 12;
-                hours = hours ? hours : 12; 
-                const timeEl = document.getElementById('current-time');
-                if(timeEl) timeEl.innerText = `${hours}:${minutes} ${ampm}`;
-            }
-            setInterval(updateTime, 1000);
-            updateTime();
-
-            const logo = document.getElementById('dvdLogo');
-            const container = document.getElementById('contact');
-            
-            if(logo && container) {
-                let x = 100, y = 100;
-                let dirX = 1.5, dirY = 1.5; 
-                let containerRect, logoRect;
-
-                function animateLogo() {
-                    containerRect = container.getBoundingClientRect();
-                    logoRect = logo.getBoundingClientRect();
-                    
-                    x += dirX; 
-                    y += dirY;
-
-                    if (x + logoRect.width >= containerRect.width || x <= 0) { dirX *= -1; }
-                    if (y + logoRect.height >= containerRect.height || y <= 0) { dirY *= -1; }
-
-                    if(x > containerRect.width) x = containerRect.width - logoRect.width;
-                    if(y > containerRect.height) y = containerRect.height - logoRect.height;
-
-                    logo.style.left = x + 'px';
-                    logo.style.top = y + 'px';
-
-                    requestAnimationFrame(animateLogo);
-                }
-                
-                window.addEventListener('resize', () => {
-                    if(container && logo) {
-                        containerRect = container.getBoundingClientRect();
-                        logoRect = logo.getBoundingClientRect();
-                        // Reset position if out of bounds
-                        if (x > containerRect.width - logoRect.width) x = Math.max(0, containerRect.width - logoRect.width);
-                        if (y > containerRect.height - logoRect.height) y = Math.max(0, containerRect.height - logoRect.height);
-                    }
-                });
-
-                requestAnimationFrame(animateLogo);
-            }
-        });
-    </script>
 </body>
 </html>
